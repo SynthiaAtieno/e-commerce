@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/constants/asset_image.dart';
 
@@ -28,7 +29,26 @@ class Login extends StatelessWidget {
               AssetImages.instance.welcomeImage,
               alignment: Alignment.center,
             ),
-            const Icon(Icons.facebook)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {},
+                    child: const Icon(
+                      Icons.facebook,
+                      color: Colors.blue,
+                    )),
+                const SizedBox(width: 10),
+                CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {},
+                    child: Image.asset(
+                      AssetImages.instance.googleImage,
+                      scale: 95,
+                    ))
+              ],
+            )
           ],
         ),
       ),
