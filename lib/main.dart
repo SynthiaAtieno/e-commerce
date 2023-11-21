@@ -1,4 +1,5 @@
-import 'package:e_commerce/screens/auth_ui/login/login.dart';
+import 'package:e_commerce/constants/theme.dart';
+import 'package:e_commerce/screens/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,10 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E-Commerce App',
-      home: Login(),
+      theme: themeData,
+      home: const Welcome(),
     );
   }
 }

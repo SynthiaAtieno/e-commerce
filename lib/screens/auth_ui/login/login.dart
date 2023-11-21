@@ -1,55 +1,80 @@
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/constants/routes/routes.dart';
+import 'package:e_commerce/screens/auth_ui/sign_up/signup.dart';
+import 'package:e_commerce/widgets/elevated_button.dart';
+import 'package:e_commerce/widgets/textfield.dart';
+import 'package:e_commerce/widgets/top_title.dart';
 import 'package:flutter/material.dart';
-import 'package:e_commerce/constants/asset_image.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+ final TextEditingController emailController = TextEditingController();
+
+ final TextEditingController passwordController = TextEditingController();
+ bool isShowPassword = true;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: kToolbarHeight + 12),
-            const Text(
-              "Welcome",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Text(
-              "Buy all your items here",
-              style: TextStyle(fontSize: 18.0),
-            ),
-            Image.asset(
-              AssetImages.instance.welcomeImage,
-              alignment: Alignment.center,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {},
-                    child: const Icon(
-                      Icons.facebook,
-                      color: Colors.blue,
-                    )),
-                const SizedBox(width: 10),
-                CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {},
-                    child: Image.asset(
-                      AssetImages.instance.googleImage,
-                      scale: 95,
-                    ))
-              ],
-            )
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TopTitles(
+                  title: "Login", subtitle: "Welcome back to E commerce App"),
+              const SizedBox(height: 8),
+               TextFields(
+                 obsecure: false,
+                controller: emailController,
+                hintText: "Email",
+                iconData: Icons.email,
+                label: "Email",
+              ),
+              const SizedBox(height: 16),
+               TextFields(
+                 obsecure: isShowPassword,
+                 controller: passwordController,
+                hintText: "Password",
+                iconData: Icons.lock,
+                suffixIconData: !isShowPassword ? Icons.visibility : Icons.visibility_off,
+                label: "Password",
+                 onTap: (){
+                   setState(() {
+                     isShowPassword = !isShowPassword;
+                   });
+                 },
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              PrimaryButton(title: "LOGIN", onPressed: () {}),
+              const SizedBox(
+                height: 6,
+              ),
+              const Center(
+                  child: Text(
+                "Don't have an account?",
+                style: TextStyle(fontSize: 16),
+              )),
+              Center(
+                  child: TextButton(
+                onPressed: () {
+                  Routes.instance.push(widget:  SignUp(), context: context);
+                },
+                child: Text(
+                  "Create Account",
+                  style: TextStyle(fontSize: 14,color: Theme.of(context).primaryColor),
+                ),
+              )),
+            ],
+          ),
         ),
       ),
     );
