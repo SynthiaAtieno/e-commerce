@@ -66,7 +66,8 @@ class _LoginState extends State<Login> {
               Center(
                   child: TextButton(
                 onPressed: () {
-                  Routes.instance.push(widget:  SignUp(), context: context);
+                  Routes.instance.pushAndRemoveUtil(widget: SignUp(), context: context);
+                  //Routes.instance.push(widget:  SignUp(), context: context);
                 },
                 child: Text(
                   "Create Account",

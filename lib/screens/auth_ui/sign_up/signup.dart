@@ -1,18 +1,29 @@
 import 'package:e_commerce/constants/routes/routes.dart';
 import 'package:e_commerce/constants/theme.dart';
 import 'package:e_commerce/screens/auth_ui/login/login.dart';
+import 'package:e_commerce/screens/home/home_page.dart';
 import 'package:e_commerce/widgets/elevated_button.dart';
 import 'package:e_commerce/widgets/textfield.dart';
 import 'package:e_commerce/widgets/top_title.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({super.key});
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
+  final nameController = TextEditingController();
+
+  final phoneController = TextEditingController();
+  bool isShowPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +65,26 @@ class SignUp extends StatelessWidget {
                 hintText: "Password",
                 iconData: Icons.lock,
                 label: "Password",
-                suffixIconData: Icons.visibility,
+                suffixIconData: !isShowPassword ? Icons.visibility : Icons.visibility_off,
+                onTap: (){
+                  setState(() {
+                    isShowPassword = !isShowPassword;
+                  });
+                },
               ),
               const SizedBox(height: 18),
-              PrimaryButton(onPressed: () {}, title: "SignUp"),
+              PrimaryButton(onPressed: () {
+                Routes.instance.pushAndRemoveUtil(widget: const HomePage(), context: context);
+                /*print("jhkjrhghger");
+                if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty && nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
+                  print("ghireghiurehgiug");
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
+                  print("hfjshkhjklashdjkds");
+
+                }else{
+                    print("Please fill all the fields");
+                }*/
+              }, title: "SignUp"),
               const SizedBox(height: 10),
               const Center(
                 child: Text(
@@ -67,7 +94,8 @@ class SignUp extends StatelessWidget {
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {Routes.instance.push(widget: Login(), context: context);},
+                  onPressed: () {
+                    Routes.instance.pushAndRemoveUtil(widget: const Login(), context: context);},
                   child: Text(
                     "Login",
                     style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
